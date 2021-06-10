@@ -282,9 +282,9 @@ description
 # Feature: DocString variations
 ## Scenario: minimalistic
 * And a DocString with an escaped alternative separator inside
-\`\`\`\`
-\`\`\`what
-\`\`\`\`
+  \`\`\`\`
+  \`\`\`what
+  \`\`\`\`
 `
       const envelopes = generateMessages(
         markdown,

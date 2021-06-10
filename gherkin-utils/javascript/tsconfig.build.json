@@ -6,6 +6,7 @@
   },
   "include": [
     "src",
-    "test"
+    "test",
+    "package.json"
   ]
 }

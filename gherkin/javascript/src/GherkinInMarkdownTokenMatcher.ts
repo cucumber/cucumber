@@ -120,7 +120,7 @@ export default class GherkinInMarkdownTokenMatcher implements ITokenMatcher<Toke
     if (newSeparator) {
       if (this.activeDocStringSeparator === DEFAULT_DOC_STRING_SEPARATOR) {
         this.activeDocStringSeparator = new RegExp(`^(${newSeparator})$`)
-        this.indentToRemove = 0
+        this.indentToRemove = token.line.indent
       } else {
         this.activeDocStringSeparator = DEFAULT_DOC_STRING_SEPARATOR
       }

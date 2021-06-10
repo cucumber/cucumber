@@ -1,14 +1,32 @@
 # gherkin-utils
 
-This library is a set of utilities to work with Gherkin documents and AST. It does not depend on Gherkin library, so it is lightweight enough for using in a browser.
+This library is a set of utilities to work with Gherkin documents and AST.
 
-It provides two main utilities, `pretty` and `gherkinDocumentWalker`.
+## Command line
 
-# pretty(gherkinDocument: messages.GherkinDocument)
+The command-line tool can be used to format `.feature` files or translate `.feature` files
+into `.feature.md` files.
 
-This function takes a IGherkinDocument as input and produce the text version of it. The main goal it to use it in tests.
+Example usage:
 
-# GherkinDocumentWalker class
+    # Translate all `.feature` files to `.feature.md` files and delete the `.feature` files.
+    # See https://github.com/cucumber/common/blob/main/gherkin/MARKDOWN_WITH_GHERKIN.md
+    # Note that the globs must be quoted to prevent the shell from expanding the globs.
+    npx @cucumber/gherkin-utils format --move "features/**/*.feature" "features/**/*.feature.md"
+
+More details:
+
+    npx @cucumber/gherkin-utils --help
+
+## As a library
+
+This module can also be used as a library. It provides two main utilities, `pretty` and `gherkinDocumentWalker`.
+
+### pretty(gherkinDocument: messages.GherkinDocument, syntax: 'gherkin' | 'markdown')
+
+This function takes a GherkinDocument as input and returns a pretty-printed representatio in Gherkin or Markdown.
+
+### GherkinDocumentWalker class
 
 The GherkinDocumentWalker is a class for walking and filtering the AST produced by Gherkin after parsing a feature file.
 When running `walkGherkinDocument` on a GherkinDocument, it will produce a deep copy of the object.

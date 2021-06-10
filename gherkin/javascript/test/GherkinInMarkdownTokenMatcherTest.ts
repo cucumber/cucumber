@@ -106,18 +106,20 @@ describe('GherkinInMarkdownTokenMatcher', function () {
     assert(tm.match_DocStringSeparator(t1))
     assert.strictEqual(t1.matchedType, TokenType.DocStringSeparator)
     assert.strictEqual(t1.matchedKeyword, '````')
+    assert.strictEqual(t1.matchedIndent, 2)
     assert.strictEqual(t1.matchedText, '')
 
     const t2 = new Token(new GherkinLine('  ```', location.line), location)
     assert(tm.match_Other(t2))
     assert.strictEqual(t2.matchedType, TokenType.Other)
     assert.strictEqual(t2.matchedKeyword, undefined)
-    assert.strictEqual(t2.matchedText, '  ```')
+    assert.strictEqual(t2.matchedText, '```')
 
     const t3 = new Token(new GherkinLine('  ````', location.line), location)
     assert(tm.match_DocStringSeparator(t3))
     assert.strictEqual(t3.matchedType, TokenType.DocStringSeparator)
     assert.strictEqual(t3.matchedKeyword, '````')
+    assert.strictEqual(t2.matchedIndent, 2)
     assert.strictEqual(t3.matchedText, '')
   })
 

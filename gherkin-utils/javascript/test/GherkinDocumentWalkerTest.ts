@@ -77,7 +77,7 @@ Feature: hello
         ...{ acceptScenario: (scenario) => scenario.name === 'Earth' },
       })
       const newGherkinDocument = walker.walkGherkinDocument(gherkinDocument)
-      const newSource = pretty(newGherkinDocument)
+      const newSource = pretty(newGherkinDocument, 'gherkin')
       const expectedNewSource = `Feature: Solar System
 
   Scenario: Earth
@@ -101,7 +101,7 @@ Feature: hello
         ...{ acceptStep: (step) => step.text.includes('liquid') },
       })
       const newGherkinDocument = walker.walkGherkinDocument(gherkinDocument)
-      const newSource = pretty(newGherkinDocument)
+      const newSource = pretty(newGherkinDocument, 'gherkin')
       const expectedNewSource = `Feature: Solar System
 
   Scenario: Earth
@@ -146,7 +146,7 @@ Feature: hello
         ...{ acceptScenario: (scenario) => scenario.name === 'Saturn' },
       })
       const newGherkinDocument = walker.walkGherkinDocument(gherkinDocument)
-      const newSource = pretty(newGherkinDocument)
+      const newSource = pretty(newGherkinDocument, 'gherkin')
       const expectedNewSource = `Feature: Solar System
 
   Scenario: Saturn
@@ -178,7 +178,7 @@ Feature: hello
         },
       })
       const newGherkinDocument = walker.walkGherkinDocument(gherkinDocument)
-      const newSource = pretty(newGherkinDocument)
+      const newSource = pretty(newGherkinDocument, 'gherkin')
       const expectedNewSource = `Feature: Solar System
 
   Background: Space
@@ -212,7 +212,7 @@ Feature: hello
         ...{ acceptStep: (step) => step.text.includes('space') },
       })
       const newGherkinDocument = walker.walkGherkinDocument(gherkinDocument)
-      const newSource = pretty(newGherkinDocument)
+      const newSource = pretty(newGherkinDocument, 'gherkin')
       const expectedNewSource = `Feature: Solar System
 
   Background: Space
@@ -252,7 +252,7 @@ Feature: hello
         ...{ acceptScenario: (scenario) => scenario.name === 'Andromeda' },
       })
       const newGherkinDocument = walker.walkGherkinDocument(gherkinDocument)
-      const newSource = pretty(newGherkinDocument)
+      const newSource = pretty(newGherkinDocument, 'gherkin')
       const expectedNewSource = `Feature: Solar System
 
   Rule: Galaxy
@@ -286,7 +286,7 @@ Feature: hello
         ...{ acceptRule: (rule) => rule.name === 'Galaxy' },
       })
       const newGherkinDocument = walker.walkGherkinDocument(gherkinDocument)
-      const newSource = pretty(newGherkinDocument)
+      const newSource = pretty(newGherkinDocument, 'gherkin')
       const expectedNewSource = `Feature: Solar System
 
   Rule: Galaxy
@@ -320,7 +320,7 @@ Feature: hello
         ...{ acceptRule: () => true },
       })
       const newGherkinDocument = walker.walkGherkinDocument(gherkinDocument)
-      const newSource = pretty(newGherkinDocument)
+      const newSource = pretty(newGherkinDocument, 'gherkin')
       const expectedNewSource = `Feature: Solar System
 
   Rule: Galaxy
@@ -346,7 +346,7 @@ Feature: hello
         acceptFeature: (feature) => feature.name === 'Solar System',
       })
       const newGherkinDocument = walker.walkGherkinDocument(gherkinDocument)
-      const newSource = pretty(newGherkinDocument)
+      const newSource = pretty(newGherkinDocument, 'gherkin')
       const expectedNewSource = `Feature: Solar System
 
   Scenario: Saturn

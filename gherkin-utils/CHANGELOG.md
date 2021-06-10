@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+* Added new command-line tool for formatting Gherkin documents and converting to/from Gherkin/Markdown.
+  Run `npx @cucumber/gherkin-utils --help` for details about usage.
+
 ### Changed
 
 ### Deprecated

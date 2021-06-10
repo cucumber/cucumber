@@ -1,14 +1,19 @@
 import assert from 'assert'
+import path from 'path'
 import parse from './parse'
-import pretty from '../src/pretty'
+import pretty, { escapeCell } from '../src/pretty'
+import { GherkinClassicTokenMatcher, GherkinInMarkdownTokenMatcher } from '@cucumber/gherkin'
+import fg from 'fast-glob'
+import * as fs from 'fs'
+import * as messages from '@cucumber/messages'
 
 describe('PrettyFormatter', () => {
   it('renders a feature with no scenarios', () => {
-    assertPrettyIdentical('Feature: hello\n')
+    checkGherkinToAstToMarkdowToAstToGherkin('Feature: hello\n')
   })
 
   it('renders a feature with two scenarios', () => {
-    assertPrettyIdentical(`Feature: hello
+    checkGherkinToAstToMarkdowToAstToGherkin(`Feature: hello
 
   Scenario: one
     Given hello
@@ -19,7 +24,7 @@ describe('PrettyFormatter', () => {
   })
 
   it('renders a feature with two scenarios in a rule', () => {
-    assertPrettyIdentical(`Feature: hello
+    checkGherkinToAstToMarkdowToAstToGherkin(`Feature: hello
 
   Rule: ok
 
@@ -32,7 +37,7 @@ describe('PrettyFormatter', () => {
   })
 
   it('renders a feature with background and scenario', () => {
-    assertPrettyIdentical(`Feature: hello
+    checkGherkinToAstToMarkdowToAstToGherkin(`Feature: hello
 
   Background: bbb
     Given hello
@@ -43,7 +48,7 @@ describe('PrettyFormatter', () => {
   })
 
   it('renders a rule with background and scenario', () => {
-    assertPrettyIdentical(`Feature: hello
+    checkGherkinToAstToMarkdowToAstToGherkin(`Feature: hello
 
   Rule: machin
 
@@ -56,7 +61,7 @@ describe('PrettyFormatter', () => {
   })
 
   it('renders tags when set', () => {
-    assertPrettyIdentical(`@featureTag
+    checkGherkinToAstToMarkdowToAstToGherkin(`@featureTag
 Feature: hello
 
   Rule: machin
@@ -70,8 +75,75 @@ Feature: hello
 `)
   })
 
+  it('renders examples tables', () => {
+    checkGherkinToAstToMarkdowToAstToGherkin(`Feature: hello
+
+  Scenario: one
+    Given a a <text> and a <number>
+
+    Examples: some data
+      | text | number |
+      | a    |      1 |
+      | ab   |     10 |
+      | abc  |    100 |
+`)
+  })
+
+  it('renders data tables', () => {
+    checkGherkinToAstToMarkdowToAstToGherkin(`Feature: hello
+
+  Scenario: one
+    Given a data table:
+      | text | numbers |
+      | a    |       1 |
+      | ab   |      10 |
+      | abc  |     100 |
+`)
+  })
+
+  it('renders docstrings', () => {
+    checkGherkinToAstToMarkdowToAstToGherkin(`Feature: hello
+
+  Scenario: one
+    Given a doc string:
+      \`\`\`json
+      {
+        "foo": "bar"
+      }
+      \`\`\`
+`)
+  })
+
+  it('escapes docstring separators', () => {
+    checkGherkinToAstToGherkin(`Feature: hello
+
+  Scenario: one
+    Given a doc string:
+      """
+      a
+      \\"\\"\\"
+      b
+      """
+`)
+  })
+
+  xit('renders comments', () => {
+    checkGherkinToAstToGherkin(`# one
+Feature: hello
+
+  Scenario: one
+    # two
+    Given a doc string:
+      """
+      a
+      \\"\\"\\"
+      b
+      """
+`)
+  })
+
   it('renders descriptions when set', () => {
-    assertPrettyIdentical(`Feature: hello
+    checkGherkinToAstToGherkin(`Feature: hello
   So this is a feature
 
   Rule: machin
@@ -88,9 +160,81 @@ Feature: hello
       Given world
 `)
   })
+
+  const featureFiles = fg.sync(`${__dirname}/../../../gherkin/testdata/good/*.feature`)
+  for (const featureFile of featureFiles) {
+    const relativePath = path.relative(__dirname, featureFile)
+    it(`renders ${relativePath}`, () => {
+      const gherkinSource = fs.readFileSync(featureFile, 'utf-8')
+      const gherkinDocument = parse(gherkinSource, new GherkinClassicTokenMatcher())
+      const formattedGherkinSource = pretty(gherkinDocument, 'gherkin')
+      const language = gherkinDocument.feature?.language || 'en'
+      const newGherkinDocument = checkGherkinToAstToGherkin(formattedGherkinSource, language)
+      assert(newGherkinDocument)
+      // TODO: comments
+      if (gherkinDocument.comments.length === 0) {
+        assert.deepStrictEqual(neutralize(newGherkinDocument), neutralize(gherkinDocument))
+      }
+    })
+  }
+
+  describe('escapeCell', () => {
+    it('escapes nothing', () => {
+      assert.strictEqual(escapeCell('hello'), 'hello')
+    })
+
+    it('escapes newline', () => {
+      assert.strictEqual(escapeCell('\n'), '\\n')
+    })
+
+    it('escapes pipe', () => {
+      assert.strictEqual(escapeCell('|'), '\\|')
+    })
+
+    it('escapes backslash', () => {
+      assert.strictEqual(escapeCell('\\'), '\\\\')
+    })
+  })
 })
 
-function assertPrettyIdentical(source: string) {
-  const gherkinDocument = parse(source)
-  assert.strictEqual(pretty(gherkinDocument), source)
+function checkGherkinToAstToMarkdowToAstToGherkin(gherkinSource: string) {
+  const gherkinDocument = parse(gherkinSource, new GherkinClassicTokenMatcher())
+  const markdownSource = pretty(gherkinDocument, 'markdown')
+  //     console.log(`---<MDG>---
+  // ${markdownSource}
+  // ---</MDG>--`)
+  const markdownGherkinDocument = parse(markdownSource, new GherkinInMarkdownTokenMatcher())
+
+  const newGherkinSource = pretty(markdownGherkinDocument, 'gherkin')
+  assert.strictEqual(newGherkinSource, gherkinSource)
+}
+
+function checkGherkinToAstToGherkin(
+  gherkinSource: string,
+  language = 'en'
+): messages.GherkinDocument {
+  const gherkinDocument = parse(gherkinSource, new GherkinClassicTokenMatcher(language))
+  const newGherkinSource = pretty(gherkinDocument, 'gherkin')
+  // console.log(`---<Gherkin>---
+  // ${newGherkinSource}
+  // ---</Gherkin>--`)
+  assert.strictEqual(newGherkinSource, gherkinSource)
+  return gherkinDocument
+}
+
+function neutralize(gherkinDocument: messages.GherkinDocument): messages.GherkinDocument {
+  const json = JSON.stringify(
+    gherkinDocument,
+    (key, value) => {
+      if ('id' === key) {
+        return 'id'
+      } else if (['column', 'line'].includes(key)) {
+        return '0'
+      } else {
+        return value
+      }
+    },
+    2
+  )
+  return JSON.parse(json)
 }
