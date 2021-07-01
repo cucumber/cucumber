@@ -27,7 +27,7 @@ When(
   'an array with {int} bytes is attached as {string}',
   function (size: number, mediaType: string) {
     const data = [...Array(size).keys()]
-    const buffer = Buffer.from(data)
+    const buffer = Buffer.from(data.map((k) => k + 1))
     this.attach(buffer, mediaType)
   }
 )

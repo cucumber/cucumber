@@ -30,7 +30,7 @@ When('text with ANSI escapes is logged') do
 end
 
 When('an array with {int} bytes is attached as {string}') do |size, media_type|
-  data = (0..size-1).map {|i| [i].pack('C') }.join
+  data = (1..size).map {|i| [i].pack('C') }.join
   attach_or_embed(self, data, media_type)
 end
 

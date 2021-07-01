@@ -21,18 +21,7 @@ export default function makeTestCase(
   makeHookStep: MakeHookTestStep
 ): TestCase {
   if (pickle.steps.length === 0) {
-    const id = newId()
-    const undefinedStep = new EmptyPickleTestStep(
-      id,
-      undefined,
-      true,
-      [],
-      [],
-      clock,
-      stopwatch,
-      makeErrorMessage
-    )
-    return new TestCase(newId(), [undefinedStep], pickle.id, clock)
+    return new TestCase(newId(), [], pickle.id, clock)
   }
 
   const beforeHookSteps = makeHookSteps(

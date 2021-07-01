@@ -37,7 +37,7 @@ describe('makeTestCase', () => {
   })
 
   context('when the pickle has no steps', () => {
-    it('generates a synthetic undefined test step', async () => {
+    it('generates a testCase without any steps', async () => {
       // See https://github.com/cucumber/cucumber/issues/249
       const pickle: messages.Pickle = {
         id: 'some-id',
@@ -65,7 +65,7 @@ describe('makeTestCase', () => {
       const messageList: messages.Envelope[] = []
       const listener: EnvelopeListener = (message: messages.Envelope) => messageList.push(message)
       await testCase.execute(listener, 0, 'some-test-case-started-id')
-      assert.strictEqual(messageList.length, 4)
+      assert.strictEqual(messageList.length, 2)
     })
   })
 

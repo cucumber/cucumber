@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 * Added Examples to the attachments feature to generate messages for fixing
   [#1173](https://github.com/cucumber/common/issues/1173)
+* Added a feature with an empty scenario
+  ([1498](https://github.com/cucumber/cucumber/pull/1498)
+  [249](https://github.com/cucumber/cucumber/issues/249))
 
 ### Changed
 

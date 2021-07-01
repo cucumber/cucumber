@@ -110,6 +110,7 @@ func TestStepToJSON(step *TestStep) *jsonStep {
 	location := makeLocation(step.Pickle.Uri, step.Step.Location.Line)
 	if step.ExampleRow != nil {
 		location = makeLocation(step.Pickle.Uri, step.ExampleRow.Location.Line)
+		location = makeLocation(location, step.Step.Location.Line)
 	}
 
 	if len(step.StepDefinitions) == 1 {

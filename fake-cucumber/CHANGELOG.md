@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+* Pickles without step does not generate an undefined step anymore.
+  ([1498](https://github.com/cucumber/cucumber/pull/1498)
+   [249](https://github.com/cucumber/cucumber/issues/249))
+
 ### Deprecated
 
 ### Removed
