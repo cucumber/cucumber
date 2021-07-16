@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+* Features for pending steps, skipped scenarios and undefined steps
+
 ### Changed
 
 ### Deprecated

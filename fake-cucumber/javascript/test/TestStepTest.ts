@@ -24,6 +24,7 @@ describe('TestStep', () => {
   let passedPickleTestStep: ITestStep
   let failedPickleTestStep: ITestStep
   let pendingPickleTestStep: ITestStep
+  let skippedPickleTestStep: ITestStep
   let failedHookTestStep: ITestStep
   beforeEach(() => {
     world = new TestWorld()
@@ -40,6 +41,13 @@ describe('TestStep', () => {
       new CucumberExpression('a pending step', new ParameterTypeRegistry()),
       null,
       () => 'pending'
+    )
+
+    const skippedStepDefinition = new ExpressionStepDefinition(
+      'an-id',
+      new CucumberExpression('a skipped step', new ParameterTypeRegistry()),
+      null,
+      () => 'skipped'
     )
 
     const failedStepDefinition = new ExpressionStepDefinition(
@@ -121,6 +129,20 @@ describe('TestStep', () => {
       withSourceFramesOnlyStackTrace()
     )
 
+    skippedPickleTestStep = makePickleTestStep(
+      'some-test-step-id',
+      {
+        text: 'a skipped step',
+        astNodeIds: [],
+        id: '1',
+      },
+      [skippedStepDefinition],
+      ['skipped.feature:234'],
+      new IncrementClock(),
+      new IncrementStopwatch(),
+      withSourceFramesOnlyStackTrace()
+    )
+
     const hook = new Hook('hook-id', null, { uri: 'hook.ts' }, () => {
       throw new Error()
     })
@@ -186,6 +208,17 @@ describe('TestStep', () => {
         true
       )
       assert.strictEqual(testStepResult.status, 'PENDING')
+      assert.notDeepStrictEqual(testStepResult.duration, TimeConversion.millisecondsToDuration(0))
+    })
+
+    it('returns a TestStepResult with status SKIPPED when the sole step definitions returns "skipped"', async () => {
+      const testStepResult = await skippedPickleTestStep.execute(
+        world,
+        'some-testCaseStartedId',
+        () => undefined,
+        true
+      )
+      assert.strictEqual(testStepResult.status, 'SKIPPED')
       assert.notDeepStrictEqual(testStepResult.duration, TimeConversion.millisecondsToDuration(0))
     })
 

@@ -9,7 +9,15 @@ NDJSONS_GOLDEN  = $(patsubst features/%,features/%.ndjson,$(FEATURES))
 .tested: $(NDJSONS_GOLDEN)
 
 # Dirty hack: the Ruby version we use do not support some features.
+features/pending/pending.feature.ndjson:
+	mkdir -p $(@D)
+	echo "" > $@
+
 features/rules/rules.feature.ndjson:
+	mkdir -p $(@D)
+	echo "" > $@
+
+features/skipped/skipped.feature.ndjson:
 	mkdir -p $(@D)
 	echo "" > $@
 

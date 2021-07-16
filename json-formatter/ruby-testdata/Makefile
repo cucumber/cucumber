@@ -14,7 +14,15 @@ features/%.json: features/%-unprocessed.json
 		jq --sort-keys "." > $@
 
 # Dirty hack: the Ruby version we use do not support some features.
+features/pending/pending.feature.json:
+	mkdir -p $(@D)
+	echo "[]" > $@
+
 features/rules/rules.feature.json:
+	mkdir -p $(@D)
+	echo "[]" > $@
+
+features/skipped/skipped.feature.json:
 	mkdir -p $(@D)
 	echo "[]" > $@
 

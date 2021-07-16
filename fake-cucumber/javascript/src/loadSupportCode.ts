@@ -12,7 +12,7 @@ import findSupportCodePaths from './findSupportCodePaths'
 import IClock from './IClock'
 import DateClock from './DateClock'
 import IStopwatch from './IStopwatch'
-import IncrementStopwatch from "./IncrementStopwatch";
+import IncrementStopwatch from './IncrementStopwatch'
 
 export default async function loadSupportCode(
   predictableIds: boolean,

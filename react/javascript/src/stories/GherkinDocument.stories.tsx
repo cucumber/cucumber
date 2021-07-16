@@ -18,9 +18,12 @@ import hooks from '../../acceptance/hooks/hooks.feature'
 import markdown from '../../acceptance/markdown/markdown.feature.md'
 import minimal from '../../acceptance/minimal/minimal.feature'
 import parameterTypes from '../../acceptance/parameter-types/parameter-types.feature'
+import pending from '../../acceptance/pending/pending.feature'
 import retry from '../../acceptance/retry/retry.feature'
 import rules from '../../acceptance/rules/rules.feature'
+import skipped from '../../acceptance/skipped/skipped.feature'
 import stacktTraces from '../../acceptance/stack-traces/stack-traces.feature'
+import undefinedEnvelopes from '../../acceptance/undefined/undefined.feature'
 import unknownParameterTypes from '../../acceptance/unknown-parameter-type/unknown-parameter-type.feature'
 
 export default {
@@ -81,6 +84,11 @@ ParameterTypes.args = {
   envelopes: parameterTypes,
 }
 
+export const Pending = Template.bind({})
+Pending.args = {
+  envelopes: pending,
+}
+
 export const Retry = Template.bind({})
 Retry.args = {
   envelopes: retry,
@@ -91,9 +99,19 @@ Rules.args = {
   envelopes: rules,
 }
 
+export const Skipped = Template.bind({})
+Skipped.args = {
+  envelopes: skipped,
+}
+
 export const StackTraces = Template.bind({})
 StackTraces.args = {
   envelopes: stacktTraces,
+}
+
+export const Undefined = Template.bind({})
+Undefined.args = {
+  envelopes: undefinedEnvelopes,
 }
 
 export const UnknownParameterTypes = Template.bind({})

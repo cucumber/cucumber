@@ -72,14 +72,12 @@ export default abstract class TestStep implements ITestStep {
       const result = await this.supportCodeExecutors[0].execute(world)
       const finish = this.stopwatch.stopwatchNow()
       const duration = millisecondsToDuration(finish - start)
+      const status: messages.TestStepResultStatus = this.inferStatus(result)
       return this.emitTestStepFinished(
         testCaseStartedId,
         {
           duration,
-          status:
-            result === 'pending'
-              ? messages.TestStepResultStatus.PENDING
-              : messages.TestStepResultStatus.PASSED,
+          status,
         },
         listener
       )
@@ -124,5 +122,16 @@ export default abstract class TestStep implements ITestStep {
       },
     })
     return testStepResult
+  }
+
+  private inferStatus(result: any): messages.TestStepResultStatus {
+    switch (result) {
+      case 'pending':
+        return messages.TestStepResultStatus.PENDING
+      case 'skipped':
+        return messages.TestStepResultStatus.SKIPPED
+      default:
+        return messages.TestStepResultStatus.PASSED
+    }
   }
 }
