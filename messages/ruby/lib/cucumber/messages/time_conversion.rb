@@ -19,7 +19,7 @@ module Cucumber
         nanos = second_modulus * NANOSECONDS_PER_SECOND
         {
           'seconds' => seconds,
-          'nanos' => nanos
+          'nanos' => nanos.to_i
         }
       end
 

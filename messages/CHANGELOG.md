@@ -17,6 +17,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 
+- [Ruby] `seconds_to_duration` convert nanos to an integer to match the json schema
+  ([#1655](https://github.com/cucumber/common/pull/1655))
+
 ## [17.0.0] - 2021-07-08
 
 ### Added
