@@ -1,12 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { JSDOM } from 'jsdom'
-import { EnvelopesQuery, MDG, QueriesWrapper } from '../src'
+import { EnvelopesQuery, components } from '../src'
 import markdown from '../acceptance/markdown/markdown.feature.md'
 import * as messages from '@cucumber/messages'
 import { Query as GherkinQuery } from '@cucumber/gherkin-utils'
 import { Query as CucumberQuery } from '@cucumber/query'
-import GherkinDocument from '../src/components/gherkin/GherkinDocument'
 import UriContext from '../src/UriContext'
 
 describe('Markdown', () => {
@@ -21,11 +20,11 @@ describe('Markdown', () => {
     const document = dom.window.document
 
     const app = (
-      <QueriesWrapper {...props(envelopes)}>
+      <components.app.QueriesWrapper {...props(envelopes)}>
         <UriContext.Provider value={gherkinDocument.uri}>
-          <GherkinDocument gherkinDocument={gherkinDocument} />
+          <components.gherkin.GherkinDocument gherkinDocument={gherkinDocument} />
         </UriContext.Provider>
-      </QueriesWrapper>
+      </components.app.QueriesWrapper>
     )
     ReactDOM.render(app, document.getElementById('content'))
   })
@@ -41,11 +40,11 @@ describe('Markdown', () => {
     const document = dom.window.document
 
     const app = (
-      <QueriesWrapper {...props(envelopes)}>
+      <components.app.QueriesWrapper {...props(envelopes)}>
         <UriContext.Provider value={source.uri}>
-          <MDG uri={source.uri}>{source.data}</MDG>
+          <components.gherkin.MDG uri={source.uri}>{source.data}</components.gherkin.MDG>
         </UriContext.Provider>
-      </QueriesWrapper>
+      </components.app.QueriesWrapper>
     )
     ReactDOM.render(app, document.getElementById('content'))
   })

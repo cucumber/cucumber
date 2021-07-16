@@ -1,10 +1,10 @@
 import React from 'react'
 
-import StatusIcon from './StatusIcon'
+import { StatusIcon } from './StatusIcon'
 import * as messages from '@cucumber/messages'
 import styles from './StepItem.module.scss'
 
-const StepItem: React.FunctionComponent<{
+export const StepItem: React.FunctionComponent<{
   status?: messages.TestStepResultStatus
 }> = ({ status, children }) => {
   return (

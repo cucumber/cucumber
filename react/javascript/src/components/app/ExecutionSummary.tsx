@@ -1,16 +1,19 @@
 import React from 'react'
 import * as messages from '@cucumber/messages'
 import EnvelopesQueryContext, { EnvelopesQuery } from '../../EnvelopesQueryContext'
-import CICommitLink from './CICommitLink'
+import { CICommitLink } from './CICommitLink'
 import getDurationsMillis from '../../getDurationMillis'
-import Duration from './Duration'
+import { Duration } from './Duration'
 
 interface IProductProps {
   name: string
   product: messages.Product
 }
 
-const Product: React.FunctionComponent<IProductProps> = ({ name: name, product: product }) => {
+export const Product: React.FunctionComponent<IProductProps> = ({
+  name: name,
+  product: product,
+}) => {
   const value = [product.name, product.version]
     .filter((v) => v !== '' && v !== undefined && v !== null)
     .join(' - ')
@@ -37,7 +40,7 @@ interface IProps {
   meta: messages.Meta
 }
 
-const ExecutionSummary: React.FunctionComponent<IProps> = ({ meta: meta }) => {
+export const ExecutionSummary: React.FunctionComponent<IProps> = ({ meta: meta }) => {
   const envelopesQuery = React.useContext(EnvelopesQueryContext)
 
   const testRunStarted = findTestRunStarted(envelopesQuery)
@@ -81,5 +84,3 @@ const ExecutionSummary: React.FunctionComponent<IProps> = ({ meta: meta }) => {
     </div>
   )
 }
-
-export default ExecutionSummary

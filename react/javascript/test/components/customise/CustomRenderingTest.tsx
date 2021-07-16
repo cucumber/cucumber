@@ -1,7 +1,7 @@
 import assert from 'assert'
 import React from 'react'
-import Tags from '../../../src/components/gherkin/Tags'
-import CustomRendering from '../../../src/components/customise/CustomRendering'
+import { Tags } from '../../../src/components/gherkin'
+import { CustomRendering } from '../../../src/components/customise'
 import * as messages from '@cucumber/messages'
 import { render } from '../utils'
 

@@ -15,7 +15,7 @@ interface IProps extends SearchQueryProps {
   envelopesQuery: EnvelopesQuery
 }
 
-const QueriesWrapper: React.FunctionComponent<IProps> = (props) => (
+export const QueriesWrapper: React.FunctionComponent<IProps> = (props) => (
   <div className="cucumber-react">
     <CucumberQueryContext.Provider value={props.cucumberQuery}>
       <GherkinQueryContext.Provider value={props.gherkinQuery}>
@@ -28,5 +28,3 @@ const QueriesWrapper: React.FunctionComponent<IProps> = (props) => (
     </CucumberQueryContext.Provider>
   </div>
 )
-
-export default QueriesWrapper

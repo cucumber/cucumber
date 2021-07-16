@@ -6,7 +6,7 @@ interface IProps {
   ci: messages.Ci
 }
 
-const CICommitLink: React.FunctionComponent<IProps> = ({ ci: ci }) => {
+export const CICommitLink: React.FunctionComponent<IProps> = ({ ci: ci }) => {
   const commitLink = ciCommitLink(ci)
 
   if (commitLink) {
@@ -14,5 +14,3 @@ const CICommitLink: React.FunctionComponent<IProps> = ({ ci: ci }) => {
   }
   return <span>#{ci.git.revision}</span>
 }
-
-export default CICommitLink

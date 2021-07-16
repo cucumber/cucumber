@@ -10,7 +10,7 @@ interface IProps {
   statusesWithScenarios: Status[]
 }
 
-const SearchBar: React.FunctionComponent<IProps> = ({ statusesWithScenarios }) => {
+export const SearchBar: React.FunctionComponent<IProps> = ({ statusesWithScenarios }) => {
   const searchQueryContext = React.useContext(SearchQueryContext)
 
   const searchSubmitted = (event: React.FormEvent<HTMLFormElement>) => {
@@ -84,5 +84,3 @@ const SearchBar: React.FunctionComponent<IProps> = ({ statusesWithScenarios }) =
     </div>
   )
 }
-
-export default SearchBar

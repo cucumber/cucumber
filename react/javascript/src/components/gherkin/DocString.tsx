@@ -1,12 +1,12 @@
 import React from 'react'
-import HighLight from '../app/HighLight'
+import { HighLight } from '../app/HighLight'
 import defaultStyles from './DocString.module.scss'
 import {
   DefaultComponent,
   DocStringClasses,
   DocStringProps,
   useCustomRendering,
-} from '../customise/CustomRendering'
+} from '../customise'
 
 const DefaultRenderer: DefaultComponent<DocStringProps, DocStringClasses> = ({
   docString,
@@ -19,7 +19,7 @@ const DefaultRenderer: DefaultComponent<DocStringProps, DocStringClasses> = ({
   )
 }
 
-const DocString: React.FunctionComponent<DocStringProps> = (props) => {
+export const DocString: React.FunctionComponent<DocStringProps> = (props) => {
   const ResolvedRenderer = useCustomRendering<DocStringProps, DocStringClasses>(
     'DocString',
     defaultStyles,
@@ -27,5 +27,3 @@ const DocString: React.FunctionComponent<DocStringProps> = (props) => {
   )
   return <ResolvedRenderer {...props} />
 }
-
-export default DocString

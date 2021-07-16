@@ -1,6 +1,6 @@
 import React from 'react'
 import statusName from '../gherkin/statusName'
-import StatusIcon from '../gherkin/StatusIcon'
+import { StatusIcon } from '../gherkin/StatusIcon'
 import * as messages from '@cucumber/messages'
 import statuses from './statuses'
 
@@ -8,7 +8,7 @@ interface IProps {
   scenarioCountByStatus: Map<messages.TestStepResultStatus, number>
 }
 
-const StatusesSummary: React.FunctionComponent<IProps> = ({
+export const StatusesSummary: React.FunctionComponent<IProps> = ({
   scenarioCountByStatus: scenarioCountByStatus,
 }) => {
   return (
@@ -42,5 +42,3 @@ const StatusesSummary: React.FunctionComponent<IProps> = ({
     </div>
   )
 }
-
-export default StatusesSummary

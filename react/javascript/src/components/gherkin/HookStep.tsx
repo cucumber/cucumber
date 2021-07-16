@@ -1,17 +1,17 @@
 import React from 'react'
 import * as messages from '@cucumber/messages'
 import CucumberQueryContext from '../../CucumberQueryContext'
-import ErrorMessage from './ErrorMessage'
-import StepItem from './StepItem'
-import Attachment from './Attachment'
+import { Title } from './Title'
+import { ErrorMessage } from './ErrorMessage'
+import { StepItem } from './StepItem'
+import { Attachment } from './Attachment'
 import { getWorstTestStepResult } from '@cucumber/messages'
-import Title from './Title'
 
 interface IProps {
   step: messages.TestStep
 }
 
-const HookStep: React.FunctionComponent<IProps> = ({ step }) => {
+export const HookStep: React.FunctionComponent<IProps> = ({ step }) => {
   const cucumberQuery = React.useContext(CucumberQueryContext)
 
   const stepResult = getWorstTestStepResult(cucumberQuery.getTestStepResults(step.id))
@@ -50,5 +50,3 @@ const HookStep: React.FunctionComponent<IProps> = ({ step }) => {
     )
   }
 }
-
-export default HookStep

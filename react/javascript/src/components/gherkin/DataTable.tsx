@@ -5,10 +5,10 @@ import {
   DataTableProps,
   DefaultComponent,
   useCustomRendering,
-} from '../customise/CustomRendering'
+} from '../customise'
 import * as messages from '@cucumber/messages'
 import isNumber from './isNumber'
-import HighLight from '../app/HighLight'
+import { HighLight } from '../app/HighLight'
 
 const TableBody: React.FunctionComponent<{
   rows: readonly messages.TableRow[]
@@ -39,7 +39,7 @@ const DefaultRenderer: DefaultComponent<DataTableProps, DataTableClasses> = ({
   )
 }
 
-const DataTable: React.FunctionComponent<DataTableProps> = (props) => {
+export const DataTable: React.FunctionComponent<DataTableProps> = (props) => {
   const ResolvedRenderer = useCustomRendering<DataTableProps, DataTableClasses>(
     'DataTable',
     defaultStyles,
@@ -47,5 +47,3 @@ const DataTable: React.FunctionComponent<DataTableProps> = (props) => {
   )
   return <ResolvedRenderer {...props} />
 }
-
-export default DataTable

@@ -2,12 +2,12 @@ import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import rehypePlugins from '../app/rehypePlugins'
 import GherkinQueryContext from '../../GherkinQueryContext'
-import Step from './Step'
+import { Step } from './Step'
+import { Title, Header } from './Title'
+import { Keyword } from './Keyword'
+import { ExamplesTable } from './ExamplesTable'
 import dataTableStyles from './DataTable.module.scss'
-import Title, { Header } from './Title'
-import Keyword from './Keyword'
-import HighLight from '../app/HighLight'
-import ExamplesTable from './ExamplesTable'
+import { HighLight } from '../app/HighLight'
 import * as messages from '@cucumber/messages'
 
 interface IProps {
@@ -15,7 +15,7 @@ interface IProps {
   children: any
 }
 
-const MDG: React.FunctionComponent<IProps> = ({ uri, children }) => {
+export const MDG: React.FunctionComponent<IProps> = ({ uri, children }) => {
   const gherkinQuery = React.useContext(GherkinQueryContext)
 
   let hasExamples = false
@@ -100,5 +100,3 @@ const MDG: React.FunctionComponent<IProps> = ({ uri, children }) => {
     </div>
   )
 }
-
-export default MDG

@@ -17,88 +17,80 @@ function mixinStyles<Classes>(
   return mixed as Classes
 }
 
+type Styles<C extends string> = Record<C,string>
+
+export interface AnchorProps {
+  id: string
+}
+
+export type AnchorClasses = Styles<'wrapper' | 'anchor'>
+
 export interface AttachmentProps {
   attachment: messages.Attachment
 }
 
-export interface AttachmentClasses {
-  text: string
-  icon: string
-  image: string
-}
+export type AttachmentClasses = Styles<'text' | 'icon' | 'image'>
+
+export interface ChildrenProps {}
+
+export type ChildrenClasses = Styles<'children'>
 
 export interface DataTableProps {
   dataTable: messages.DataTable
 }
 
-export interface DataTableClasses {
-  table: string
-}
+export type DataTableClasses = Styles<'table'>
 
 export interface DescriptionProps {
   description?: string
 }
 
-export interface DescriptionClasses {
-  content: string
-}
+export type DescriptionClasses = Styles<'content'>
 
 export interface DocStringProps {
   docString: messages.DocString
 }
 
-export interface DocStringClasses {
-  docString: string
-}
+export type DocStringClasses = Styles<'docString'>
 
 export interface ErrorMessageProps {
   message: string
 }
 
-export interface ErrorMessageClasses {
-  message: string
-}
+export type ErrorMessageClasses = Styles<'message'>
 
 export interface ExamplesTableProps {
   tableHeader: messages.TableRow
   tableBody: readonly messages.TableRow[]
 }
 
-export interface ExamplesTableClasses {
-  examplesTable: string
-  detailRow: string
+export type ExamplesTableClasses = Styles<'examplesTable' | 'detailRow'>
+
+export interface FeatureProps {
+  feature: messages.Feature
 }
 
-export interface KeywordClasses {
-  keyword: string
-}
+export type KeywordClasses = Styles<'keyword'>
 
 export interface ParameterProps {
   parameterTypeName: string
 }
 
-export interface ParameterClasses {
-  parameter: string
-}
+export type ParameterClasses = Styles<'parameter'>
 
 export interface StatusIconProps {
   status: messages.TestStepResultStatus
 }
 
-export interface StatusIconClasses {
-  icon: string
-}
+export type StatusIconClasses = Styles<'icon'>
 
 export interface TagsProps {
   tags: readonly messages.Tag[]
 }
 
-export interface TagsClasses {
-  tags: string
-  tag: string
-}
+export type TagsClasses = Styles<'tags' | 'tag'>
 
-export declare type DefaultComponent<Props, Classes> = React.FunctionComponent<
+export declare type DefaultComponent<Props, Classes extends Styles<string> = {}> = React.FunctionComponent<
   Props & { styles: Classes }
 >
 
@@ -114,12 +106,15 @@ export declare type Customised<Props, Classes> =
   | Partial<Classes>
 
 export interface CustomRenderingSupport {
+  Anchor?: Customised<AnchorProps, AnchorClasses>
   Attachment?: Customised<AttachmentProps, AttachmentClasses>
+  Children?: Customised<ChildrenProps, ChildrenClasses>
   DataTable?: Customised<DataTableProps, DataTableClasses>
   Description?: Customised<DescriptionProps, DescriptionClasses>
   DocString?: Customised<DocStringProps, DocStringClasses>
   ErrorMessage?: Customised<ErrorMessageProps, ErrorMessageClasses>
   ExamplesTable?: Customised<ExamplesTableProps, ExamplesTableClasses>
+  Feature?: Customised<FeatureProps, {}>
   Keyword?: Customised<any, KeywordClasses>
   Parameter?: Customised<ParameterProps, ParameterClasses>
   StatusIcon?: Customised<StatusIconProps, StatusIconClasses>
@@ -128,9 +123,9 @@ export interface CustomRenderingSupport {
 
 export declare type CustomRenderable = keyof CustomRenderingSupport
 
-const CustomRenderingContext = React.createContext<CustomRenderingSupport>({})
+export const CustomRenderingContext = React.createContext<CustomRenderingSupport>({})
 
-export function useCustomRendering<Props, Classes>(
+export function useCustomRendering<Props, Classes extends Styles<string> = {}>(
   component: CustomRenderable,
   defaultStyles: Record<string, string>,
   DefaultRenderer: DefaultComponent<Props, Classes>
@@ -149,7 +144,7 @@ export function useCustomRendering<Props, Classes>(
   return StyledDefaultRenderer
 }
 
-const CustomRendering: React.FunctionComponent<{
+export const CustomRendering: React.FunctionComponent<{
   support: CustomRenderingSupport
 }> = (props) => {
   return (
@@ -158,5 +153,3 @@ const CustomRendering: React.FunctionComponent<{
     </CustomRenderingContext.Provider>
   )
 }
-
-export default CustomRendering

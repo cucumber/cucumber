@@ -3,10 +3,9 @@ import ReactDOM from 'react-dom'
 import React from 'react'
 import { JSDOM } from 'jsdom'
 import SearchQueryContext, { SearchQueryProps, SearchQueryCtx } from '../src/SearchQueryContext'
-import QueriesWrapper from '../src/components/app/QueriesWrapper'
 import { Query as GherkinQuery } from '@cucumber/gherkin-utils'
 import { Query as CucumberQuery } from '@cucumber/query'
-import { EnvelopesQuery } from '../src/EnvelopesQueryContext'
+import { EnvelopesQuery, components } from '../src'
 import sinon from 'sinon'
 
 describe('QueriesWrapper', () => {
@@ -28,7 +27,7 @@ describe('QueriesWrapper', () => {
     const searchQueryCapture = sinon.spy()
 
     const app = (
-      <QueriesWrapper
+      <components.app.QueriesWrapper
         {...opts}
         gherkinQuery={opts?.gherkinQuery || new GherkinQuery()}
         cucumberQuery={opts?.cucumberQuery || new CucumberQuery()}
@@ -40,7 +39,7 @@ describe('QueriesWrapper', () => {
             return <div />
           }}
         </SearchQueryContext.Consumer>
-      </QueriesWrapper>
+      </components.app.QueriesWrapper>
     )
     ReactDOM.render(app, document.getElementById('content'))
     return {

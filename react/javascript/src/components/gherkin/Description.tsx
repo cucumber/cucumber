@@ -1,11 +1,11 @@
 import React from 'react'
-import HighLight from '../app/HighLight'
+import { HighLight } from '../app/HighLight'
 import {
   DefaultComponent,
   DescriptionClasses,
   DescriptionProps,
   useCustomRendering,
-} from '../customise/CustomRendering'
+} from '../customise'
 import defaultStyles from './Description.module.scss'
 
 const DefaultRenderer: DefaultComponent<DescriptionProps, DescriptionClasses> = ({
@@ -22,7 +22,7 @@ const DefaultRenderer: DefaultComponent<DescriptionProps, DescriptionClasses> = 
   )
 }
 
-const Description: React.FunctionComponent<DescriptionProps> = (props) => {
+export const Description: React.FunctionComponent<DescriptionProps> = (props) => {
   const ResolvedRenderer = useCustomRendering<DescriptionProps, DescriptionClasses>(
     'Description',
     defaultStyles,
@@ -30,5 +30,3 @@ const Description: React.FunctionComponent<DescriptionProps> = (props) => {
   )
   return <ResolvedRenderer {...props} />
 }
-
-export default Description

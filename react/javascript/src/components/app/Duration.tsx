@@ -5,7 +5,7 @@ interface IProps {
   durationMillis: number
 }
 
-const Duration: React.FunctionComponent<IProps> = ({ durationMillis }) => {
+export const Duration: React.FunctionComponent<IProps> = ({ durationMillis }) => {
   const duration = humanFriendlyDuration(durationMillis)
 
   return (
@@ -18,4 +18,3 @@ const Duration: React.FunctionComponent<IProps> = ({ durationMillis }) => {
     </span>
   )
 }
-export default Duration

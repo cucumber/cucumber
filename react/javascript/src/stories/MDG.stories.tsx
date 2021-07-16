@@ -4,19 +4,16 @@ import { Meta, Story } from '@storybook/react'
 import * as messages from '@cucumber/messages'
 import { Query as CucumberQuery } from '@cucumber/query'
 import { Query as GherkinQuery } from '@cucumber/gherkin-utils'
-import QueriesWrapper from '../components/app/QueriesWrapper'
-import { EnvelopesQuery } from '../../src'
-import GherkinDocument from '../components/gherkin/GherkinDocument'
+import { EnvelopesQuery, components } from '../../src'
 
 import '../styles/styles.scss'
 
 import markdown from '../../acceptance/markdown/markdown.feature.md'
-import MDG from '../components/gherkin/MDG'
 import UriContext from '../UriContext'
 
 export default {
   title: 'MDG',
-  component: GherkinDocument,
+  component: components.gherkin.GherkinDocument,
 } as Meta
 
 type Props = {
@@ -29,11 +26,11 @@ type TemplateArgs = { envelopes: readonly messages.Envelope[] }
 const Template: Story<TemplateArgs> = ({ envelopes }) => {
   const source = envelopes.filter((envelope) => envelope.source)[0].source
   return (
-    <QueriesWrapper {...props(envelopes)}>
+    <components.app.QueriesWrapper {...props(envelopes)}>
       <UriContext.Provider value={source.uri}>
-        <MDG uri={source.uri}>{source.data}</MDG>
+        <components.gherkin.MDG uri={source.uri}>{source.data}</components.gherkin.MDG>
       </UriContext.Provider>
-    </QueriesWrapper>
+    </components.app.QueriesWrapper>
   )
 }
 

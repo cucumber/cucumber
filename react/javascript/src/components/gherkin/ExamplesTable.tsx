@@ -5,16 +5,16 @@ import defaultStyles from './DataTable.module.scss'
 import GherkinQueryContext from '../../GherkinQueryContext'
 import CucumberQueryContext from '../../CucumberQueryContext'
 import UriContext from '../../UriContext'
-import StatusIcon from './StatusIcon'
+import { StatusIcon } from './StatusIcon'
+import { ErrorMessage } from './ErrorMessage'
 import isNumber from './isNumber'
-import ErrorMessage from './ErrorMessage'
 import {
   DefaultComponent,
   ExamplesTableClasses,
   ExamplesTableProps,
   useCustomRendering,
-} from '../customise/CustomRendering'
-import Attachment from './Attachment'
+} from '../customise'
+import { Attachment } from './Attachment'
 
 const DefaultRenderer: DefaultComponent<ExamplesTableProps, ExamplesTableClasses> = ({
   tableHeader,
@@ -36,7 +36,7 @@ const DefaultRenderer: DefaultComponent<ExamplesTableProps, ExamplesTableClasses
   )
 }
 
-const ExamplesTable: React.FunctionComponent<ExamplesTableProps> = (props) => {
+export const ExamplesTable: React.FunctionComponent<ExamplesTableProps> = (props) => {
   const ResolvedRenderer = useCustomRendering<ExamplesTableProps, ExamplesTableClasses>(
     'ExamplesTable',
     defaultStyles,
@@ -122,5 +122,3 @@ const AttachmentAndErrorRow: React.FunctionComponent<IAttachmentAndErrorRowProps
     </tr>
   )
 }
-
-export default ExamplesTable

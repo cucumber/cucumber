@@ -1,6 +1,6 @@
 import assert from 'assert'
 import React from 'react'
-import Tags from '../../../src/components/gherkin/Tags'
+import { Tags } from '../../../src/components/gherkin'
 import { render } from '../utils'
 
 describe('Tags', () => {

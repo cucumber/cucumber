@@ -5,7 +5,7 @@ import {
   ErrorMessageClasses,
   ErrorMessageProps,
   useCustomRendering,
-} from '../customise/CustomRendering'
+} from '../customise'
 
 const DefaultRenderer: DefaultComponent<ErrorMessageProps, ErrorMessageClasses> = ({
   message,
@@ -14,7 +14,7 @@ const DefaultRenderer: DefaultComponent<ErrorMessageProps, ErrorMessageClasses> 
   return <pre className={styles.message}>{message}</pre>
 }
 
-const ErrorMessage: React.FunctionComponent<ErrorMessageProps> = (props) => {
+export const ErrorMessage: React.FunctionComponent<ErrorMessageProps> = (props) => {
   const ResolvedRenderer = useCustomRendering<ErrorMessageProps, ErrorMessageClasses>(
     'ErrorMessage',
     defaultStyles,
@@ -22,5 +22,3 @@ const ErrorMessage: React.FunctionComponent<ErrorMessageProps> = (props) => {
   )
   return <ResolvedRenderer {...props} />
 }
-
-export default ErrorMessage

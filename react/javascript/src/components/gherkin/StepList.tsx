@@ -1,13 +1,13 @@
 import * as messages from '@cucumber/messages'
 import React from 'react'
-import Step from './Step'
+import { Step } from './Step'
 
 interface IProps {
   steps: readonly messages.Step[]
   hasExamples: boolean
 }
 
-const StepList: React.FunctionComponent<IProps> = ({ steps, hasExamples }) => {
+export const StepList: React.FunctionComponent<IProps> = ({ steps, hasExamples }) => {
   return (
     <>
       {steps.map((step, index) => (
@@ -18,5 +18,3 @@ const StepList: React.FunctionComponent<IProps> = ({ steps, hasExamples }) => {
     </>
   )
 }
-
-export default StepList

@@ -1,24 +1,24 @@
 import React from 'react'
-import DataTable from './DataTable'
-import Keyword from './Keyword'
-import DocString from './DocString'
+import { DataTable } from './DataTable'
+import { Keyword } from './Keyword'
+import { DocString } from './DocString'
+import { ErrorMessage } from './ErrorMessage'
+import { StepItem } from './StepItem'
+import { Attachment } from './Attachment'
+import { Parameter } from './Parameter'
+import { Title } from './Title'
 import * as messages from '@cucumber/messages'
+import { getWorstTestStepResult } from '@cucumber/messages'
 import CucumberQueryContext from '../../CucumberQueryContext'
 import GherkinQueryContext from '../../GherkinQueryContext'
-import ErrorMessage from './ErrorMessage'
-import StepItem from './StepItem'
-import Attachment from './Attachment'
-import HighLight from '../app/HighLight'
-import { getWorstTestStepResult } from '@cucumber/messages'
-import Parameter from './Parameter'
-import Title from './Title'
+import { HighLight } from '../app/HighLight'
 
 interface IProps {
   step: messages.Step
   hasExamples: boolean
 }
 
-const Step: React.FunctionComponent<IProps> = ({ step, hasExamples }) => {
+export const Step: React.FunctionComponent<IProps> = ({ step, hasExamples }) => {
   const gherkinQuery = React.useContext(GherkinQueryContext)
   const cucumberQuery = React.useContext(CucumberQueryContext)
 
@@ -90,5 +90,3 @@ const Step: React.FunctionComponent<IProps> = ({ step, hasExamples }) => {
     </StepItem>
   )
 }
-
-export default Step

@@ -1,22 +1,22 @@
 import React from 'react'
-import Tags from './Tags'
-import Description from './Description'
-import Examples from './Examples'
 import * as messages from '@cucumber/messages'
-import StepList from './StepList'
-import HookList from './HookList'
+import { HookList } from './HookList'
+import { Keyword } from './Keyword'
+import { StepList } from './StepList'
+import { Tags } from './Tags'
+import { Title } from './Title'
+import { Examples } from './Examples'
+import { Description } from './Description'
 import CucumberQueryContext from '../../CucumberQueryContext'
 import GherkinQueryContext from '../../GherkinQueryContext'
 import UriContext from '../../UriContext'
-import Title from './Title'
-import Keyword from './Keyword'
-import HighLight from '../app/HighLight'
+import { HighLight } from '../app'
 
 interface IProps {
   scenario: messages.Scenario
 }
 
-const Scenario: React.FunctionComponent<IProps> = ({ scenario }) => {
+export const Scenario: React.FunctionComponent<IProps> = ({ scenario }) => {
   const examplesList = scenario.examples || []
   const hasExamples = examplesList.length > 0
   const cucumberQuery = React.useContext(CucumberQueryContext)
@@ -46,5 +46,3 @@ const Scenario: React.FunctionComponent<IProps> = ({ scenario }) => {
     </section>
   )
 }
-
-export default Scenario

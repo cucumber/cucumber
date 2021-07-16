@@ -1,15 +1,15 @@
 import React from 'react'
-import Description from './Description'
+import { Description } from './Description'
+import { StepList } from './StepList'
+import { Title } from './Title'
+import { Keyword } from './Keyword'
 import * as messages from '@cucumber/messages'
-import StepList from './StepList'
-import Title from './Title'
-import Keyword from './Keyword'
 
 interface IProps {
   background: messages.Background
 }
 
-const Background: React.FunctionComponent<IProps> = ({ background }) => {
+export const Background: React.FunctionComponent<IProps> = ({ background }) => {
   return (
     <section>
       <Title header="h2" id={background.id}>
@@ -23,5 +23,3 @@ const Background: React.FunctionComponent<IProps> = ({ background }) => {
     </section>
   )
 }
-
-export default Background

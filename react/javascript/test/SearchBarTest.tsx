@@ -1,7 +1,7 @@
 import assert from 'assert'
 import ReactDOM from 'react-dom'
 import React from 'react'
-import SearchBar from '../src/components/app/SearchBar'
+import { SearchBar } from '../src/components/app'
 import { JSDOM } from 'jsdom'
 import SearchQueryContext, {
   SearchQueryProps,

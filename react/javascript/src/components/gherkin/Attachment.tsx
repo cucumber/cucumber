@@ -1,6 +1,6 @@
 import React from 'react'
 import * as messages from '@cucumber/messages'
-import ErrorMessage from './ErrorMessage'
+import { ErrorMessage } from './ErrorMessage'
 import { faPaperclip } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // @ts-ignore
@@ -11,9 +11,9 @@ import {
   AttachmentProps,
   DefaultComponent,
   useCustomRendering,
-} from '../customise/CustomRendering'
+} from '../customise'
 
-const DefaultRenderer: DefaultComponent<AttachmentProps, AttachmentClasses> = ({
+export const DefaultRenderer: DefaultComponent<AttachmentProps, AttachmentClasses> = ({
   attachment,
   styles,
 }) => {
@@ -36,7 +36,7 @@ const DefaultRenderer: DefaultComponent<AttachmentProps, AttachmentClasses> = ({
   }
 }
 
-const Attachment: React.FunctionComponent<AttachmentProps> = (props) => {
+export const Attachment: React.FunctionComponent<AttachmentProps> = (props) => {
   const ResolvedRenderer = useCustomRendering<AttachmentProps, AttachmentClasses>(
     'Attachment',
     defaultStyles,
@@ -132,5 +132,3 @@ function prettyJSON(s: string) {
 function prettyANSI(s: string) {
   return new Convert().toHtml(s)
 }
-
-export default Attachment

@@ -4,7 +4,7 @@ import {
   ParameterClasses,
   ParameterProps,
   useCustomRendering,
-} from '../customise/CustomRendering'
+} from '../customise'
 import defaultStyles from './Parameter.module.scss'
 
 const DefaultRenderer: DefaultComponent<ParameterProps, ParameterClasses> = ({
@@ -19,7 +19,7 @@ const DefaultRenderer: DefaultComponent<ParameterProps, ParameterClasses> = ({
   )
 }
 
-const Parameter: React.FunctionComponent<ParameterProps> = (props) => {
+export const Parameter: React.FunctionComponent<ParameterProps> = (props) => {
   const ResolvedRenderer = useCustomRendering<ParameterProps, ParameterClasses>(
     'Parameter',
     defaultStyles,
@@ -27,5 +27,3 @@ const Parameter: React.FunctionComponent<ParameterProps> = (props) => {
   )
   return <ResolvedRenderer {...props} />
 }
-
-export default Parameter

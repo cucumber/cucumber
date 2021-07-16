@@ -4,10 +4,7 @@ import { Meta, Story } from '@storybook/react'
 import * as messages from '@cucumber/messages'
 import { Query as CucumberQuery } from '@cucumber/query'
 import { Query as GherkinQuery } from '@cucumber/gherkin-utils'
-import GherkinDocumentList from '../components/app/GherkinDocumentList'
-import QueriesWrapper from '../components/app/QueriesWrapper'
-import { EnvelopesQuery } from '../../src'
-import GherkinDocument from '../components/gherkin/GherkinDocument'
+import { EnvelopesQuery, components } from '../../src'
 
 import '../styles/styles.scss'
 
@@ -25,7 +22,7 @@ import unknownParameterTypes from '../../acceptance/unknown-parameter-type/unkno
 
 export default {
   title: 'GherkinDocument',
-  component: GherkinDocument,
+  component: components.gherkin.GherkinDocument,
 } as Meta
 
 type Props = {
@@ -40,9 +37,9 @@ type TemplateArgs = {
 
 const Template: Story<TemplateArgs> = ({ envelopes }) => {
   return (
-    <QueriesWrapper {...props(envelopes)}>
-      <GherkinDocumentList />
-    </QueriesWrapper>
+    <components.app.QueriesWrapper {...props(envelopes)}>
+      <components.app.GherkinDocumentList />
+    </components.app.QueriesWrapper>
   )
 }
 

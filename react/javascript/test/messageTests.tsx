@@ -5,9 +5,8 @@ import { Query as GherkinQuery } from '@cucumber/gherkin-utils'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { JSDOM } from 'jsdom'
-import { QueriesWrapper, EnvelopesQuery } from '../src'
+import { components, EnvelopesQuery } from '../src'
 import { Query as CucumberQuery } from '@cucumber/query'
-import GherkinDocumentList from '../src/components/app/GherkinDocumentList'
 import { promisify } from 'util'
 import { pipeline, Writable } from 'stream'
 import glob from 'glob'
@@ -54,13 +53,15 @@ describe('App with messages', () => {
       )
 
       const app = (
-        <QueriesWrapper
+        <components.app.QueriesWrapper
           gherkinQuery={gherkinQuery}
           cucumberQuery={cucumberQuery}
           envelopesQuery={envelopesQuery}
         >
-          <GherkinDocumentList gherkinDocuments={gherkinQuery.getGherkinDocuments()} />
-        </QueriesWrapper>
+          <components.app.GherkinDocumentList
+            gherkinDocuments={gherkinQuery.getGherkinDocuments()}
+          />
+        </components.app.QueriesWrapper>
       )
       ReactDOM.render(app, document.getElementById('content'))
     }).timeout(30000)

@@ -1,10 +1,10 @@
 import React from 'react'
 import styles from './Title.module.scss'
-import Anchor from './Anchor'
+import { Anchor } from './Anchor'
 
 export type Header = 'h1' | 'h2' | 'h3' | 'h4' | 'h5'
 
-const Title: React.FunctionComponent<{
+export const Title: React.FunctionComponent<{
   header: Header
   id: string
 }> = ({ header: Header, id, children }) => {
@@ -16,5 +16,3 @@ const Title: React.FunctionComponent<{
     </Anchor>
   )
 }
-
-export default Title

@@ -7,9 +7,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { JSDOM } from 'jsdom'
 import { runCucumber, SupportCode } from '@cucumber/fake-cucumber'
-import { QueriesWrapper, EnvelopesQuery } from '../src'
+import { EnvelopesQuery } from '../src'
 import { Query as CucumberQuery } from '@cucumber/query'
-import GherkinDocumentList from '../src/components/app/GherkinDocumentList'
+import { components } from '../src'
 import CucumberQueryStream from './CucumberQueryStream'
 
 describe('App', () => {
@@ -37,13 +37,15 @@ describe('App', () => {
         const cucumberQueryStream = new CucumberQueryStream(cucumberQuery)
         await runCucumber(supportCode, gherkinStream, gherkinQuery, cucumberQueryStream)
         const app = (
-          <QueriesWrapper
+          <components.app.QueriesWrapper
             gherkinQuery={gherkinQuery}
             cucumberQuery={cucumberQuery}
             envelopesQuery={envelopesQuery}
           >
-            <GherkinDocumentList gherkinDocuments={gherkinQuery.getGherkinDocuments()} />
-          </QueriesWrapper>
+            <components.app.GherkinDocumentList
+              gherkinDocuments={gherkinQuery.getGherkinDocuments()}
+            />
+          </components.app.QueriesWrapper>
         )
         ReactDOM.render(app, document.getElementById('content'))
       }).timeout(10000)

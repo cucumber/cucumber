@@ -1,18 +1,19 @@
 import React from 'react'
-import Description from './Description'
-import Scenario from './Scenario'
+import { Description } from './Description'
+import { Background } from './Background'
+import { Children } from './Children'
+import { Keyword } from './Keyword'
+import { Scenario } from './Scenario'
+import { Tags } from './Tags'
+import { Title } from './Title'
 import * as messages from '@cucumber/messages'
-import Background from './Background'
-import Tags from './Tags'
-import Title from './Title'
-import Keyword from './Keyword'
-import HighLight from '../app/HighLight'
+import { HighLight } from '../app'
 
 interface IProps {
   rule: messages.Rule
 }
 
-const Rule: React.FunctionComponent<IProps> = ({ rule }) => {
+export const Rule: React.FunctionComponent<IProps> = ({ rule }) => {
   return (
     <section>
       <Tags tags={rule.tags} />
@@ -21,7 +22,7 @@ const Rule: React.FunctionComponent<IProps> = ({ rule }) => {
         <HighLight text={rule.name} />
       </Title>
       <Description description={rule.description} />
-      <div className="cucumber-children">
+      <Children>
         {(rule.children || []).map((child, index) => {
           if (child.background) {
             return <Background key={index} background={child.background} />
@@ -31,9 +32,7 @@ const Rule: React.FunctionComponent<IProps> = ({ rule }) => {
             throw new Error('Expected background or scenario')
           }
         })}
-      </div>
+      </Children>
     </section>
   )
 }
-
-export default Rule

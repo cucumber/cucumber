@@ -3,19 +3,19 @@ import GherkinQueryContext from '../../GherkinQueryContext'
 import CucumberQueryContext from '../../CucumberQueryContext'
 import SearchQueryContext from '../../SearchQueryContext'
 
-import SearchBar from './SearchBar'
+import { SearchBar } from './SearchBar'
+import { NoMatchResult } from './NoMatchResult'
+import { StatusesSummary } from './StatusesSummary'
+import { GherkinDocumentList } from './GherkinDocumentList'
 
-import NoMatchResult from './NoMatchResult'
 import Search from '../../search/Search'
 import filterByStatus from '../../filter/filterByStatus'
-import StatusesSummary from './StatusesSummary'
 import countScenariosByStatuses from '../../countScenariosByStatuses'
-import ExecutionSummary from './ExecutionSummary'
+import { ExecutionSummary } from './ExecutionSummary'
 import EnvelopesQueryContext from '../../EnvelopesQueryContext'
-import GherkinDocumentList from './GherkinDocumentList'
 import statuses from './statuses'
 
-const FilteredResults: React.FunctionComponent = () => {
+export const FilteredResults: React.FunctionComponent = () => {
   const gherkinQuery = React.useContext(GherkinQueryContext)
   const cucumberQuery = React.useContext(CucumberQueryContext)
   const { query, hideStatuses } = React.useContext(SearchQueryContext)
@@ -52,5 +52,3 @@ const FilteredResults: React.FunctionComponent = () => {
     </div>
   )
 }
-
-export default FilteredResults

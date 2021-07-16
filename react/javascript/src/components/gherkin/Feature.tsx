@@ -1,19 +1,16 @@
 import React from 'react'
-import Tags from './Tags'
-import Description from './Description'
-import Scenario from './Scenario'
-import * as messages from '@cucumber/messages'
-import Rule from './Rule'
-import Background from './Background'
-import Title from './Title'
-import Keyword from './Keyword'
-import HighLight from '../app/HighLight'
+import { Tags } from './Tags'
+import { Children } from './Children'
+import { Description } from './Description'
+import { Background } from './Background'
+import { Scenario } from './Scenario'
+import { Rule } from './Rule'
+import { Title } from './Title'
+import { Keyword } from './Keyword'
+import { HighLight } from '../app'
+import { DefaultComponent, FeatureProps, useCustomRendering } from '../customise'
 
-interface IProps {
-  feature: messages.Feature
-}
-
-const Feature: React.FunctionComponent<IProps> = ({ feature }) => {
+const DefaultRenderer: DefaultComponent<FeatureProps> = ({ feature }) => {
   return (
     <section>
       <Tags tags={feature.tags} />
@@ -22,7 +19,7 @@ const Feature: React.FunctionComponent<IProps> = ({ feature }) => {
         <HighLight text={feature.name} />
       </Title>
       <Description description={feature.description} />
-      <div className="cucumber-children">
+      <Children>
         {(feature.children || []).map((child, index) => {
           if (child.background) {
             return <Background key={index} background={child.background} />
@@ -34,9 +31,16 @@ const Feature: React.FunctionComponent<IProps> = ({ feature }) => {
             throw new Error('Expected background, scenario or rule')
           }
         })}
-      </div>
+      </Children>
     </section>
   )
 }
 
-export default Feature
+export const Feature: React.FunctionComponent<FeatureProps> = (props) => {
+  const ResolvedRenderer = useCustomRendering<FeatureProps>(
+    'Feature',
+    {},
+    DefaultRenderer
+  )
+  return <ResolvedRenderer {...props} />
+}

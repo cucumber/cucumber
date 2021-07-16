@@ -23,7 +23,11 @@ const allQueryWords = (queryWords: string[]): string[] => {
   }, [] as string[])
 }
 
-const HighLight: React.FunctionComponent<IProps> = ({ text, markdown = false, className = '' }) => {
+export const HighLight: React.FunctionComponent<IProps> = ({
+  text,
+  markdown = false,
+  className = '',
+}) => {
   const searchQueryContext = React.useContext(SearchQueryContext)
   const query = allQueryWords(
     searchQueryContext.query ? searchQueryContext.query.split(' ') : []
@@ -50,5 +54,3 @@ const HighLight: React.FunctionComponent<IProps> = ({ text, markdown = false, cl
     </span>
   )
 }
-
-export default HighLight

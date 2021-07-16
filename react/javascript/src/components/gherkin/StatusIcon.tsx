@@ -16,7 +16,7 @@ import {
   StatusIconClasses,
   StatusIconProps,
   useCustomRendering,
-} from '../customise/CustomRendering'
+} from '../customise'
 
 const DefaultRenderer: DefaultComponent<StatusIconProps, StatusIconClasses> = ({
   status,
@@ -32,7 +32,7 @@ const DefaultRenderer: DefaultComponent<StatusIconProps, StatusIconClasses> = ({
   )
 }
 
-const StatusIcon: React.FunctionComponent<StatusIconProps> = (props) => {
+export const StatusIcon: React.FunctionComponent<StatusIconProps> = (props) => {
   const Customised = useCustomRendering<StatusIconProps, StatusIconClasses>(
     'StatusIcon',
     defaultStyles,
@@ -40,8 +40,6 @@ const StatusIcon: React.FunctionComponent<StatusIconProps> = (props) => {
   )
   return <Customised {...props}>{props.children}</Customised>
 }
-
-export default StatusIcon
 
 const statusIcon = (status: messages.TestStepResultStatus): IconDefinition => {
   return {

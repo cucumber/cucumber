@@ -6,7 +6,7 @@ interface IProps {
   matches: readonly messages.GherkinDocument[]
 }
 
-const NoMatchResult: React.FunctionComponent<IProps> = ({ query, matches }) => {
+export const NoMatchResult: React.FunctionComponent<IProps> = ({ query, matches }) => {
   const showNoMatchMessage = query !== '' && matches.length === 0
 
   return (
@@ -15,5 +15,3 @@ const NoMatchResult: React.FunctionComponent<IProps> = ({ query, matches }) => {
     </p>
   )
 }
-
-export default NoMatchResult

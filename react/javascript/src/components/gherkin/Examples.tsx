@@ -1,16 +1,17 @@
 import React from 'react'
-import Keyword from './Keyword'
-import ExamplesTable from './ExamplesTable'
+import { Keyword } from './Keyword'
+import { ExamplesTable } from './ExamplesTable'
+import { Description } from './Description'
+import { Title } from './Title'
+import { Tags } from './Tags'
 import * as messages from '@cucumber/messages'
-import Tags from './Tags'
-import Description from './Description'
-import Title from './Title'
+import { Children } from './Children'
 
 interface IExamplesProps {
   examples: messages.Examples
 }
 
-const Examples: React.FunctionComponent<IExamplesProps> = ({ examples }) => {
+export const Examples: React.FunctionComponent<IExamplesProps> = ({ examples }) => {
   return (
     <section>
       <Tags tags={examples.tags} />
@@ -20,12 +21,10 @@ const Examples: React.FunctionComponent<IExamplesProps> = ({ examples }) => {
       </Title>
       <Description description={examples.description} />
       {examples.tableHeader && (
-        <div className="cucumber-children">
+        <Children>
           <ExamplesTable tableHeader={examples.tableHeader} tableBody={examples.tableBody} />
-        </div>
+        </Children>
       )}
     </section>
   )
 }
-
-export default Examples

@@ -1,5 +1,7 @@
 import React from 'react'
-import GherkinDocument from '../gherkin/GherkinDocument'
+import { GherkinDocument } from '../gherkin/GherkinDocument'
+import { StatusIcon } from '../gherkin/StatusIcon'
+import { MDG } from '../gherkin/MDG'
 import * as messages from '@cucumber/messages'
 import { getWorstTestStepResult } from '@cucumber/messages'
 import {
@@ -12,9 +14,7 @@ import {
 import UriContext from '../../UriContext'
 import GherkinQueryContext from '../../GherkinQueryContext'
 import CucumberQueryContext from '../../CucumberQueryContext'
-import StatusIcon from '../gherkin/StatusIcon'
 import styles from './GherkinDocumentList.module.scss'
-import MDG from '../gherkin/MDG'
 
 interface IProps {
   gherkinDocuments?: readonly messages.GherkinDocument[]
@@ -22,7 +22,10 @@ interface IProps {
   preExpand?: boolean
 }
 
-const GherkinDocumentList: React.FunctionComponent<IProps> = ({ gherkinDocuments, preExpand }) => {
+export const GherkinDocumentList: React.FunctionComponent<IProps> = ({
+  gherkinDocuments,
+  preExpand,
+}) => {
   const gherkinQuery = React.useContext(GherkinQueryContext)
   const cucumberQuery = React.useContext(CucumberQueryContext)
 
@@ -88,5 +91,3 @@ const GherkinDocumentList: React.FunctionComponent<IProps> = ({ gherkinDocuments
     </div>
   )
 }
-
-export default GherkinDocumentList
